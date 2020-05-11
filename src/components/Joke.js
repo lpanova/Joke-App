@@ -3,7 +3,7 @@ import './../App.css';
 import Loading from './Loading.js';
 
 function Joke() {
-  const [joke, onSetCount] = useState({
+  const [joke, onSetJoke] = useState({
     id: '',
     type: '',
     setup: '',
@@ -13,14 +13,14 @@ function Joke() {
   function onGetJoke(event) {
     event.preventDefault();
 
-    onSetCount({
+    onSetJoke({
       loading: true
     });
 
     fetch('https://official-joke-api.appspot.com/random_joke')
       .then((response) => response.json())
       .then((data) =>
-        onSetCount({
+        onSetJoke({
           id: data.id,
           type: data.type,
           setup: data.setup,
