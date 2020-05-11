@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './../App.css';
 import Loading from './Loading.js';
 
@@ -10,31 +10,41 @@ function Joke() {
     punchline: ''
   });
 
-  function onGetJoke(event) {
-    event.preventDefault();
+  const [loading, setLoading] = useState(true);
 
-    onSetJoke({
-      loading: true
-    });
+  useEffect(test, [loading]);
 
+  function test() {
+    console.log('loading:' + loading);
+    if (loading) {
+      fetchJoke();
+    }
+  }
+
+  function onClick() {
+    setLoading(true);
+  }
+
+  function fetchJoke() {
     fetch('https://official-joke-api.appspot.com/random_joke')
       .then((response) => response.json())
-      .then((data) =>
+      .then((data) => {
         onSetJoke({
           id: data.id,
           type: data.type,
           setup: data.setup,
-          punchline: data.punchline,
-          loading: false
-        })
-      );
+          punchline: data.punchline
+        });
+
+        setLoading(false);
+      });
   }
 
   return (
     <section className="wrapper-joke">
       <div>
         <div>
-          {joke.loading ? (
+          {loading ? (
             <Loading />
           ) : (
             <div>
@@ -47,7 +57,7 @@ function Joke() {
       <input
         type="button"
         value="Get new joke"
-        onClick={onGetJoke}
+        onClick={onClick}
         className="joke-button"
       />
       <span>Please press the button to laugh!</span>
