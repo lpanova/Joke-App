@@ -1,32 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './../App.css';
 import Loading from './Loading.js';
 
-class Joke extends React.Component {
-  constructor(props) {
-    super(props);
+function Joke() {
+  const [joke, onSetCount] = useState({
+    id: '',
+    type: '',
+    setup: '',
+    punchline: ''
+  });
 
-    this.state = {
-      id: '',
-      type: '',
-      setup: '',
-      punchline: ''
-    };
-
-    this.onGetJoke = this.onGetJoke.bind(this);
-  }
-
-  onGetJoke(event) {
+  function onGetJoke(event) {
     event.preventDefault();
 
-    this.setState({
+    onSetCount({
       loading: true
     });
 
     fetch('https://official-joke-api.appspot.com/random_joke')
       .then((response) => response.json())
       .then((data) =>
-        this.setState({
+        onSetCount({
           id: data.id,
           type: data.type,
           setup: data.setup,
@@ -36,32 +30,29 @@ class Joke extends React.Component {
       );
   }
 
-  render() {
-    return (
-      <section className="wrapper-joke">
+  return (
+    <section className="wrapper-joke">
+      <div>
         <div>
-          <div>
-            {this.state.loading ? (
-              <Loading />
-            ) : (
-              <div>
-                {' '}
-                {this.state.setup} <br /> {this.state.punchline}
-              </div>
-            )}
-          </div>
+          {joke.loading ? (
+            <Loading />
+          ) : (
+            <div>
+              {joke.setup} <br /> {joke.punchline}
+            </div>
+          )}
         </div>
+      </div>
 
-        <input
-          type="button"
-          value="Get new joke"
-          onClick={this.onGetJoke}
-          className="joke-button"
-        />
-        <span>Please press the button to laugh!</span>
-      </section>
-    );
-  }
+      <input
+        type="button"
+        value="Get new joke"
+        onClick={onGetJoke}
+        className="joke-button"
+      />
+      <span>Please press the button to laugh!</span>
+    </section>
+  );
 }
 
 export default Joke;
