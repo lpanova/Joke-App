@@ -1,67 +1,68 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './../App.css';
 import Loading from './Loading.js';
 
-class Joke extends React.Component {
-  constructor(props) {
-    super(props);
+function Joke() {
+  const [joke, onSetJoke] = useState({
+    id: '',
+    type: '',
+    setup: '',
+    punchline: ''
+  });
 
-    this.state = {
-      id: '',
-      type: '',
-      setup: '',
-      punchline: ''
-    };
+  const [loading, setLoading] = useState(true);
 
-    this.onGetJoke = this.onGetJoke.bind(this);
+  useEffect(test, [loading]);
+
+  function test() {
+    console.log('loading:' + loading);
+    if (loading) {
+      fetchJoke();
+    }
   }
 
-  onGetJoke(event) {
-    event.preventDefault();
+  function onClick() {
+    setLoading(true);
+  }
 
-    this.setState({
-      loading: true
-    });
-
+  function fetchJoke() {
     fetch('https://official-joke-api.appspot.com/random_joke')
       .then((response) => response.json())
-      .then((data) =>
-        this.setState({
+      .then((data) => {
+        onSetJoke({
           id: data.id,
           type: data.type,
           setup: data.setup,
-          punchline: data.punchline,
-          loading: false
-        })
-      );
+          punchline: data.punchline
+        });
+
+        setLoading(false);
+      });
   }
 
-  render() {
-    return (
-      <section className="wrapper-joke">
+  return (
+    <section className="wrapper-joke">
+      <div>
         <div>
-          <div>
-            {this.state.loading ? (
-              <Loading />
-            ) : (
-              <div>
-                {' '}
-                {this.state.setup} <br /> {this.state.punchline}
-              </div>
-            )}
-          </div>
+          {loading ? (
+            <Loading />
+          ) : (
+            <div>
+              {joke.setup} <br /> {joke.punchline}
+            </div>
+          )}
         </div>
+      </div>
 
-        <input
-          type="button"
-          value="Get new joke"
-          onClick={this.onGetJoke}
-          className="joke-button"
-        />
-        <span>Please press the button to laugh!</span>
-      </section>
-    );
-  }
+      <input
+        type="button"
+        value="Get new joke"
+        onClick={onClick}
+        className="joke-button"
+      />
+      <span>Please press the button to laugh!</span>
+    </section>
+  );
 }
 
 export default Joke;
