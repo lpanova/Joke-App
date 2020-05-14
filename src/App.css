@@ -76,6 +76,10 @@
   color: #6725a2
 }
 
+.activeLink {
+  color: #3c1063
+}
+
 /* Counter */
 
 .mt-6 {

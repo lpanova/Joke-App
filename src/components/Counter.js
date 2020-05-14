@@ -1,48 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../App.css';
 
-class Counter extends React.Component {
-  constructor(props) {
-    super(props);
+function Counter() {
+  const [count, onSetCount] = useState(0);
 
-    this.state = {
-      count: 0
-    };
-
-    this.increment = this.increment.bind(this);
-    this.decrement = this.decrement.bind(this);
+  function increment() {
+    onSetCount(count + 1);
   }
 
-  increment(event) {
-    this.setState({
-      count: this.state.count + 1
-    });
+  function decrement() {
+    onSetCount(count - 1);
   }
 
-  decrement(event) {
-    this.setState({
-      count: this.state.count - 1
-    });
-  }
-
-  render() {
-    return (
-      <div className="mt-6">
-        <div className="wrapper-counter">
-          <button onClick={this.decrement} className="button">
-            -
-          </button>
-          <div className="counter">{this.state.count}</div>
-          <button onClick={this.increment} className="button">
-            +
-          </button>
-        </div>
-        <span className="description-text">
-          Please press buttons to inceremnt or decrement!
-        </span>
+  return (
+    <div className="mt-6">
+      <div className="wrapper-counter">
+        <button onClick={decrement} className="button">
+          -
+        </button>
+        <div className="counter">{count}</div>
+        <button onClick={increment} className="button">
+          +
+        </button>
       </div>
-    );
-  }
+      <span className="description-text">
+        Please press buttons to inceremnt or decrement!
+      </span>
+    </div>
+  );
 }
 
 export default Counter;

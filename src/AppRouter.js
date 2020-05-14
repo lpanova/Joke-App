@@ -10,6 +10,7 @@ class AppRouter extends React.Component {
         <Switch>
           <Route path="/joke" component={Joke} />
           <Route path="/counter" component={Counter} />
+          <Route component={Joke} />
         </Switch>
       </div>
     );

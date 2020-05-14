@@ -6,10 +6,14 @@ class Navigation extends React.Component {
   render() {
     return (
       <div className="nav">
-        <NavLink to="/joke" className="nav-item">
-          Welcome
+        <NavLink to="/joke" className="nav-item" activeClassName="activeLink">
+          Joke
         </NavLink>
-        <NavLink to="/counter" className="nav-item">
+        <NavLink
+          to="/counter"
+          className="nav-item"
+          activeClassName="activeLink"
+        >
           Counter
         </NavLink>
       </div>
