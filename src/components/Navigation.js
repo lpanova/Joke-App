@@ -16,6 +16,14 @@ class Navigation extends React.Component {
         >
           Counter
         </NavLink>
+
+        <NavLink
+          to="/countervalue"
+          className="nav-item"
+          activeClassName="activeLink"
+        >
+          Counter Rezult
+        </NavLink>
       </div>
     );
   }
