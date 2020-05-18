@@ -1,12 +1,14 @@
 import React from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.css';
-import Joke from './components/Joke.js';
+import Navigation from './components/Navigation.js';
+import AppRouter from './AppRouter';
 
 function App() {
   return (
     <div className="app">
-      <Joke />
+      <Navigation />
+      <AppRouter />
     </div>
   );
 }
