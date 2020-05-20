@@ -1,7 +1,7 @@
 import React from 'react';
 import '../App.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { increment, decrement } from '../actions/counterActions';
+import { changeWithValue } from '../actions/counterActions';
 
 function Counter() {
   const count = useSelector((state) => state.counter);
@@ -9,11 +9,14 @@ function Counter() {
   return (
     <div className="mt-6">
       <div className="wrapper-counter">
-        <button onClick={() => dispatch(decrement())} className="button">
+        <button
+          onClick={() => dispatch(changeWithValue(-1))}
+          className="button"
+        >
           -
         </button>
         <div className="counter">{count}</div>
-        <button onClick={() => dispatch(increment())} className="button">
+        <button onClick={() => dispatch(changeWithValue(1))} className="button">
           +
         </button>
       </div>
