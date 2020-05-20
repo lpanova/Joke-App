@@ -2,7 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import '../App.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { incrementWithValue } from '../actions/counterActions';
+import { changeWithValue } from '../actions/counterActions';
 
 function CounterValue() {
   const count = useSelector((state) => state.counter);
@@ -24,14 +24,14 @@ function CounterValue() {
         <div className="wrapper-counter">
           <button
             className="button"
-            onClick={() => dispatch(incrementWithValue(number))}
+            onClick={() => dispatch(changeWithValue(-number))}
           >
             -
           </button>
           <input type="" name="number" onChange={handleChange} />
           <button
             className="button"
-            onClick={() => dispatch(incrementWithValue(number))}
+            onClick={() => dispatch(changeWithValue(number))}
           >
             +
           </button>
