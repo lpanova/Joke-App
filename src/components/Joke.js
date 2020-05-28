@@ -1,43 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import './../App.css';
 import Loading from './Loading.js';
+import { fetchJoke } from './../actions/jokeActions';
+import { useDispatch, useSelector } from 'react-redux';
 
 function Joke() {
-  const [joke, onSetJoke] = useState({
-    id: '',
-    type: '',
-    setup: '',
-    punchline: ''
-  });
+  const loading = useSelector((state) => state.joke.loading);
+  const joke = useSelector((state) => state.joke.joke);
+  const dispatch = useDispatch();
 
-  const [loading, setLoading] = useState(true);
-
-  useEffect(test, [loading]);
-
-  function test() {
-    console.log('loading:' + loading);
-    if (loading) {
-      fetchJoke();
-    }
-  }
+  useEffect(onClick, []);
 
   function onClick() {
-    setLoading(true);
-  }
-
-  function fetchJoke() {
-    fetch('https://official-joke-api.appspot.com/random_joke')
-      .then((response) => response.json())
-      .then((data) => {
-        onSetJoke({
-          id: data.id,
-          type: data.type,
-          setup: data.setup,
-          punchline: data.punchline
-        });
-
-        setLoading(false);
-      });
+    dispatch(fetchJoke());
   }
 
   return (
